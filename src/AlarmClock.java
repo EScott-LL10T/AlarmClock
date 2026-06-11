@@ -1,5 +1,6 @@
-import java.awt.*;
+import javax.sound.sampled.*;
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalTime;
 
 public class AlarmClock implements Runnable{
@@ -22,11 +23,28 @@ public class AlarmClock implements Runnable{
 
                 System.out.printf("\r%02d:%02d:%02d", now.getHour(), now.getMinute(), now.getSecond());
             } catch (InterruptedException e) {
-                IO.println("Thread was interrupted");
+                IO.println("Thread was interrupted.");
             }
         }
-        IO.println("\n**ALARM NOISES**");
-        Toolkit.getDefaultToolkit().beep();
+        IO.println("\n*ALARM NOISES*");
+        playSound(song);
+    }
+
+    private void playSound(File song){
+        try(AudioInputStream audioStream = AudioSystem.getAudioInputStream(song)){
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioStream);
+            clip.start();
+        }
+        catch(LineUnavailableException e){
+            IO.println("audio is unavailable.");
+        }
+        catch (UnsupportedAudioFileException e) { // only to make compiler and ide happy :>
+            IO.println("Audio file format is not supported.");
+        }
+        catch (IOException e) {
+            IO.println("IO error.");
+        }
     }
 
 }

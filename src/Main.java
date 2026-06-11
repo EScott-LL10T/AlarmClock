@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -14,11 +15,12 @@ class Main {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         LocalTime alarmTime = null;
-        File file = new File("src\\alarmSong");
+        File file;
+        file = new File("src\\alarmSong");
         File[] songs = file.listFiles();
         File song;
         if(songs == null){
-            IO.println("no files in alarmSong folder");
+            IO.println("no files in alarmSong folder.");
             return;
         }
         if(!songs[0].isFile()){
@@ -26,7 +28,7 @@ class Main {
             return;
         }
         if(!songs[0].getName().contains(".wav")) {
-            IO.println("please put a .wav file in alarmSong");
+            IO.println("please put a .wav file in alarmSong.");
             return;
         }
 
