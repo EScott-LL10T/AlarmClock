@@ -46,11 +46,9 @@ class Main {
             }
         }
 
-        AlarmClock alarmClock = new AlarmClock(alarmTime, song);
+        AlarmClock alarmClock = new AlarmClock(alarmTime, song, s);
         Thread alarmThread = new Thread(alarmClock);
         alarmThread.start();
-
-        s.close();
     }
 
 

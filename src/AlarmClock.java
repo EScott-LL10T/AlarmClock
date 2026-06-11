@@ -2,15 +2,18 @@ import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalTime;
+import java.util.Scanner;
 
 public class AlarmClock implements Runnable{
 
     private final LocalTime alarmTime;
     private final File song;
+    private final Scanner s;
 
-    AlarmClock(LocalTime alarmTime, File song){
+    AlarmClock(LocalTime alarmTime, File song, Scanner s){
         this.alarmTime = alarmTime;
         this.song = song;
+        this.s = s;
     }
 
     @Override
@@ -35,6 +38,11 @@ public class AlarmClock implements Runnable{
             Clip clip = AudioSystem.getClip();
             clip.open(audioStream);
             clip.start();
+            IO.print("press *Enter* to stop the alarm: ");
+            s.nextLine();
+            clip.stop();
+
+            s.close();
         }
         catch(LineUnavailableException e){
             IO.println("audio is unavailable.");
