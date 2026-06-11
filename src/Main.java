@@ -25,6 +25,10 @@ class Main {
             }
         }
 
+        AlarmClock alarmClock = new AlarmClock(alarmTime);
+        Thread alarmThread = new Thread(alarmClock);
+        alarmThread.start();
+
 
         s.close();
     }
