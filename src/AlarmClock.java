@@ -1,12 +1,15 @@
 import java.awt.*;
+import java.io.File;
 import java.time.LocalTime;
 
 public class AlarmClock implements Runnable{
 
     private final LocalTime alarmTime;
+    private final File song;
 
-    AlarmClock(LocalTime alarmTime){
+    AlarmClock(LocalTime alarmTime, File song){
         this.alarmTime = alarmTime;
+        this.song = song;
     }
 
     @Override
