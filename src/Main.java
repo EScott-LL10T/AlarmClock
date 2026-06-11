@@ -1,3 +1,4 @@
+import java.io.File;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -13,6 +14,24 @@ class Main {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         LocalTime alarmTime = null;
+        File file = new File("src\\alarmSong");
+        File[] songs = file.listFiles();
+        File song;
+        if(songs == null){
+            IO.println("no files in alarmSong folder");
+            return;
+        }
+        if(!songs[0].isFile()){
+            IO.println("the file in alarmSong is not a file.");
+            return;
+        }
+        if(!songs[0].getName().contains(".wav")) {
+            IO.println("please put a .wav file in alarmSong");
+            return;
+        }
+
+        song = songs[0];
+
         while(alarmTime == null) {
             try {
                 IO.print("Enter an alarm time (HH:MM:SS): ");
@@ -25,7 +44,7 @@ class Main {
             }
         }
 
-        AlarmClock alarmClock = new AlarmClock(alarmTime);
+        AlarmClock alarmClock = new AlarmClock(alarmTime, song);
         Thread alarmThread = new Thread(alarmClock);
         alarmThread.start();
 
