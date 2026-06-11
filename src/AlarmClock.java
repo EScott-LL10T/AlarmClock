@@ -11,6 +11,14 @@ public class AlarmClock implements Runnable{
     @Override
     public void run(){
 
+        while(LocalTime.now().isBefore(alarmTime)){
+            try {
+                Thread.sleep(1000);
+                IO.println(LocalTime.now());
+            } catch (InterruptedException e) {
+                IO.println("Thread was interrupted");
+            }
+        }
     }
 
 }
